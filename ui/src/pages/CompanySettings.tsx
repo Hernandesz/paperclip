@@ -1,3 +1,4 @@
+import { uiText } from "@/i18n/ui-language";
 import { QueryErrorState, useQueryView } from "@/components/QueryView";
 import { ChangeEvent, type ReactNode, useEffect, useId, useState } from "react";
 import { AgentObservabilitySettingsSection } from "../components/observability/AgentObservabilitySettings";
@@ -267,7 +268,7 @@ export function CompanySettings() {
     <div className="max-w-6xl space-y-8">
       <div className="flex items-center gap-2">
         <SlidersHorizontal className="h-5 w-5 text-muted-foreground" />
-        <h1 className="text-lg font-semibold">General</h1>
+        <h1 className="text-lg font-semibold">{uiText("General")}</h1>
       </div>
 
       {/* General */}
@@ -276,7 +277,7 @@ export function CompanySettings() {
           General
         </div>
         <div className="space-y-3">
-          <Field label="Organization name" hint="The display name for your organization.">
+          <Field label={uiText("Organization name")} hint={uiText("The display name for your organization.")}>
             <input
               className="w-full rounded-md border border-border bg-transparent px-2.5 py-1.5 text-sm outline-none"
               type="text"
@@ -291,14 +292,14 @@ export function CompanySettings() {
             )}
           </Field>
           <Field
-            label="Description"
-            hint="Optional description shown in the organization profile."
+            label={uiText("Description")}
+            hint={uiText("Optional description shown in the organization profile.")}
           >
             <input
               className="w-full rounded-md border border-border bg-transparent px-2.5 py-1.5 text-sm outline-none"
               type="text"
               value={description}
-              placeholder="Optional organization description"
+              placeholder={uiText("Optional organization description")}
               onChange={(e) => setDescription(e.target.value)}
             />
           </Field>
@@ -321,8 +322,8 @@ export function CompanySettings() {
             </div>
             <div className="flex-1 space-y-3">
               <Field
-                label="Logo"
-                hint="Upload a PNG, JPEG, WEBP, GIF, or SVG logo image."
+                label={uiText("Logo")}
+                hint={uiText("Upload a PNG, JPEG, WEBP, GIF, or SVG logo image.")}
               >
                 <div className="space-y-2">
                   <input
@@ -354,7 +355,7 @@ export function CompanySettings() {
                     </span>
                   )}
                   {logoUploadMutation.isPending && (
-                    <span className="text-xs text-muted-foreground">Uploading logo...</span>
+                    <span className="text-xs text-muted-foreground">{uiText("Uploading logo...")}</span>
                   )}
                 </div>
               </Field>
@@ -374,7 +375,7 @@ export function CompanySettings() {
             {generalMutation.isPending ? "Saving..." : "Save changes"}
           </Button>
           {generalMutation.isSuccess && (
-            <span className="text-xs text-muted-foreground">Saved</span>
+            <span className="text-xs text-muted-foreground">{uiText("Saved")}</span>
           )}
           {generalMutation.error && (
             <span className="text-xs text-destructive">
@@ -391,8 +392,8 @@ export function CompanySettings() {
         </div>
         <div>
           <ToggleField
-            label="Require board approval for new hires"
-            hint="New agent hires stay pending until approved by board."
+            label={uiText("Require board approval for new hires")}
+            hint={uiText("New agent hires stay pending until approved by board.")}
             checked={!!selectedCompany.requireBoardApprovalForNewAgents}
             onChange={(v) => settingsMutation.mutate(v)}
             toggleTestId="company-settings-team-approval-toggle"
@@ -412,7 +413,7 @@ export function CompanySettings() {
         </div>
         {membersView.kind === "error" ? <QueryErrorState error={membersView.error} onRetry={membersView.retry} /> : null}
         <DecisionOwnerField
-          label="Default decision owner"
+          label={uiText("Default decision owner")}
           hint="When a card needs a person but has no explicit owner, it goes to this user's For you list. Leave as Unassigned to keep ownerless cards in the claimable pool."
           testId="company-settings-default-decision-owner"
           unsetLabel="Unassigned (no default owner)"
@@ -423,7 +424,7 @@ export function CompanySettings() {
           save={saveDefaultDecisionOwner}
         />
         <DecisionOwnerField
-          label="Budget owner"
+          label={uiText("Budget owner")}
           hint="A budget hard stop also goes to this user's For you list, with Raise limit and Keep paused. The Company view still shows it to every operator."
           testId="company-settings-budget-owner"
           unsetLabel="No budget owner (Company view only)"
