@@ -250,6 +250,7 @@ export function SidebarAccountMenu({
                 onClick={() => setOpen(false)}
               />
               <ThemeToggle variant="menu-action" onAfterToggle={() => setOpen(false)} />
+              <UiLanguageSelect />
               {deploymentMode === "authenticated" ? (
                 <button
                   type="button"

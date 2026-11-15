@@ -1,3 +1,4 @@
+import { savedUiLanguage } from "./i18n/ui-language";
 import { VoiceCallProvider } from "./components/voice/VoiceCallProvider";
 import { useAccountIdentity } from "./api/companies-query";
 import * as React from "react";
@@ -37,6 +38,7 @@ import { hasPendingWrites, subscribePendingWrites } from "./lib/reload-safety";
 import "@mdxeditor/editor/style.css";
 import "./index.css";
 
+document.documentElement.lang = savedUiLanguage();
 initPluginBridge(React, ReactDOM);
 
 // React 19.2 emits an unbounded stream of performance.measure() entries for its
