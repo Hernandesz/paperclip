@@ -7809,7 +7809,7 @@ export function TaskDetailSurface({ conversation, tasksTab }: { tasksTab?: TaskS
           <Badge
             variant="outline"
             className="border-sky-500/40 bg-sky-500/10 text-(length:--text-nano) text-sky-700 dark:text-sky-300"
-            title="This task is a generated watchdog task. It verifies whether stopped work in the watched task tree is legitimate."
+            title={uiText("This task is a generated watchdog task. It verifies whether stopped work in the watched task tree is legitimate.")}
           >
             <ScanEye className="h-3 w-3" />
             Watchdog
@@ -7846,7 +7846,7 @@ export function TaskDetailSurface({ conversation, tasksTab }: { tasksTab?: TaskS
             variant="outline"
             data-testid="issue-detail-parked-blocker"
             className="border-amber-500/60 bg-amber-500/15 text-(length:--text-nano) text-amber-700 dark:text-amber-300"
-            title="Blocked by parked work — at least one assigned blocker is in backlog and will not wake its assignee."
+            title={uiText("Blocked by parked work — at least one assigned blocker is in backlog and will not wake its assignee.")}
           >
             <Flag className="h-3 w-3" />
             Blocked by parked work
@@ -7919,7 +7919,7 @@ export function TaskDetailSurface({ conversation, tasksTab }: { tasksTab?: TaskS
               variant="ghost"
               size="icon-xs"
               onClick={copyIssueToClipboard}
-              title="Copy task as markdown"
+              title={uiText("Copy task as markdown")}
             >
               {copied ? (
                 <Check className="h-4 w-4 text-green-500" />
@@ -7970,7 +7970,7 @@ export function TaskDetailSurface({ conversation, tasksTab }: { tasksTab?: TaskS
               variant="ghost"
               size="icon-xs"
               onClick={copyIssueToClipboard}
-              title="Copy task as markdown"
+              title={uiText("Copy task as markdown")}
             >
               {copied ? (
                 <Check className="h-4 w-4 text-green-500" />

@@ -1,3 +1,4 @@
+import { uiText } from "@/i18n/ui-language";
 import { Fragment, useId, useState, type ReactNode } from "react";
 import type { Issue } from "@paperclipai/shared";
 import { ChevronDown, ChevronRight, GitBranch } from "lucide-react";
@@ -193,7 +194,7 @@ export function TaskList({ items, allItems = items, initialColumns = defaultTask
       )}
       {hasMore ? <div ref={sentinel} className="flex items-center gap-3 py-2 text-sm text-muted-foreground">
         <span>Rendering {Math.min(limit, rowIds.length)} of {rowIds.length} tasks</span>
-        <Button variant="outline" size="sm" onClick={loadMore}>Show more tasks</Button>
+        <Button variant="outline" size="sm" onClick={loadMore}>{uiText("Show more tasks")}</Button>
       </div> : null}
       {preloadCompanyId && preloadRefs.length ? <TaskChatPreload companyId={preloadCompanyId} refs={preloadRefs} /> : null}
     </TaskListViewport>

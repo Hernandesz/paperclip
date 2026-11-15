@@ -1,3 +1,4 @@
+import { uiText } from "@/i18n/ui-language";
 import { companyProjectsQuery } from "@/lib/company-projects-query";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -550,7 +551,7 @@ export function Search() {
   return (
     <div className="flex h-full min-h-0 flex-col" data-page="search">
       <div className="border-b border-border px-4 py-3 sm:px-6">
-        <h1 className="sr-only">Search</h1>
+        <h1 className="sr-only">{uiText("Search")}</h1>
         <div className="relative">
           <SearchIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
@@ -570,15 +571,15 @@ export function Search() {
                 }
               }
             }}
-            placeholder="Search tasks, comments, documents, artifacts, agents, projects…"
-            aria-label="Search query"
+            placeholder={uiText("Search tasks, comments, documents, artifacts, agents, projects…")}
+            aria-label={uiText("Search query")}
             className="h-10 pl-9 pr-20 text-sm"
           />
           {draftQuery.length > 0 ? (
             <button
               type="button"
               onClick={handleClear}
-              aria-label="Clear search"
+              aria-label={uiText("Clear search")}
               className="absolute right-12 top-1/2 inline-flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full text-muted-foreground hover:bg-accent/50"
             >
               <X className="h-3.5 w-3.5" />
@@ -768,7 +769,7 @@ function SearchTabContent({
     return (
       <div className="mx-auto flex w-full max-w-2xl flex-col gap-4 px-4 py-10 sm:px-6">
         <div>
-          <h2 className="text-lg font-semibold">Type to search organization memory.</h2>
+          <h2 className="text-lg font-semibold">{uiText("Type to search organization memory.")}</h2>
           <p className="mt-1 text-sm text-muted-foreground">
             Tasks, comments, plan documents, artifacts, agents, projects — same surface, ranked by relevance.
           </p>
@@ -796,11 +797,11 @@ function SearchTabContent({
         ) : null}
         <ul className="space-y-1 text-xs text-muted-foreground">
           <li>
-            <span className="font-medium text-foreground">Identifier lookup:</span> type{" "}
+            <span className="font-medium text-foreground">{uiText("Identifier lookup:")}</span> type{" "}
             <code className="rounded bg-muted px-1 py-0.5 text-(length:--text-micro)">PAP-123</code> to jump straight to a task.
           </li>
           <li>
-            <span className="font-medium text-foreground">Quoted phrases:</span> wrap a phrase in quotes to match the
+            <span className="font-medium text-foreground">{uiText("Quoted phrases:")}</span> wrap a phrase in quotes to match the
             exact sequence.
           </li>
           <li>
@@ -817,7 +818,7 @@ function SearchTabContent({
     return (
       <div className="mx-auto flex w-full max-w-xl flex-col items-center justify-center gap-3 px-4 py-12 text-center">
         <AlertTriangle className="h-10 w-10 text-destructive" aria-hidden />
-        <div className="text-base font-semibold">Couldn’t run that search</div>
+        <div className="text-base font-semibold">{uiText("Couldn’t run that search")}</div>
         <p className="text-sm text-muted-foreground">
           {status ? `The server returned ${status}.` : "The request failed."} Your input and filters are still here, so
           you can retry or fall back to the Tasks filter.
@@ -885,11 +886,11 @@ function SearchTabContent({
           </Button>
         </div>
         <ul className="mt-2 space-y-0.5 text-xs text-muted-foreground">
-          <li>Try fewer tokens or a single distinctive term.</li>
+          <li>{uiText("Try fewer tokens or a single distinctive term.")}</li>
           <li>
             Use an identifier shortcut like <code className="rounded bg-muted px-1 py-0.5">PAP-123</code>.
           </li>
-          <li>Wrap multi-word phrases in quotes.</li>
+          <li>{uiText("Wrap multi-word phrases in quotes.")}</li>
         </ul>
       </div>
     );
@@ -911,7 +912,7 @@ function SearchTabContent({
             ? ` · ${activeFilterCount} ${activeFilterCount === 1 ? "filter" : "filters"} active`
             : ""}
         </span>
-        {isFetching ? <span aria-live="polite" className="normal-case tracking-normal">Updating…</span> : null}
+        {isFetching ? <span aria-live="polite" className="normal-case tracking-normal">{uiText("Updating…")}</span> : null}
       </div>
       <div className="flex flex-col gap-y-1 pb-10">
         {results.map((result) => (

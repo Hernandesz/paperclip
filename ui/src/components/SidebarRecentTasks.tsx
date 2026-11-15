@@ -1,3 +1,4 @@
+import { uiText } from "@/i18n/ui-language";
 import { useState, type FormEvent } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Archive, MoreHorizontal, Pencil, RefreshCw } from "lucide-react";
@@ -249,7 +250,7 @@ function RecentTasksList({
 
   return (
     <>
-      <SidebarSection label="Recent Tasks">
+      <SidebarSection label={uiText("Recent Tasks")}>
         {entries.map((entry) => (
           <div key={entry.id} className="sidebar-action-row group/recent-task relative">
             <RecentTaskNavItem
@@ -257,7 +258,7 @@ function RecentTasksList({
               label={entry.title}
               iconNode={entry.displayStatus === "monitoring" && !liveIssueIds.has(entry.id) ? <StatusIcon {...taskStatusIconProps(entry)} /> : undefined}
               trailing={entry.status === "in_review" && entry.externalConversationState === "waiting"
-                ? <span className="text-xs text-muted-foreground">Idle</span> : undefined}
+                ? <span className="text-xs text-muted-foreground">{uiText("Idle")}</span> : undefined}
               trailingLabel={entry.status === "in_review" && entry.externalConversationState === "waiting" ? "Idle" : undefined}
               className={rail ? undefined : "sidebar-action-link pointer-coarse:pr-8"}
               liveCount={liveIssueIds.has(entry.id) ? 1 : undefined}
@@ -319,12 +320,12 @@ function RecentTasksList({
         <DialogContent className="sm:max-w-md">
           <form className="grid gap-4" onSubmit={(event) => void submitRename(event)}>
             <DialogHeader>
-              <DialogTitle>Rename task</DialogTitle>
-              <DialogDescription>Choose a short, clear name for this task.</DialogDescription>
+              <DialogTitle>{uiText("Rename task")}</DialogTitle>
+              <DialogDescription>{uiText("Choose a short, clear name for this task.")}</DialogDescription>
             </DialogHeader>
             <Input
               autoFocus
-              aria-label="Task name"
+              aria-label={uiText("Task name")}
               value={renameValue}
               disabled={pendingAction === "rename"}
               onChange={(event) => setRenameValue(event.target.value)}
