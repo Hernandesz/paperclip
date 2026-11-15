@@ -1,0 +1,25 @@
+services:
+  paperclip:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    pids_limit: 2048
+    stop_grace_period: 90s
+    environment:
+      HOST: "0.0.0.0"
+      PORT: "3100"
+      SERVE_UI: "true"
+      PAPERCLIP_HOME: /paperclip
+      PAPERCLIP_DEPLOYMENT_MODE: authenticated
+      PAPERCLIP_DEPLOYMENT_EXPOSURE: public
+      PAPERCLIP_PUBLIC_URL: "${PAPERCLIP_PUBLIC_URL:?Set the HTTPS public URL}"
+      BETTER_AUTH_SECRET: "${BETTER_AUTH_SECRET:?Set a unique secret}"
+      PAPERCLIP_TOOL_ACTION_SIGNING_SECRET: "${PAPERCLIP_TOOL_ACTION_SIGNING_SECRET:?Set a separate unique secret}"
+      PAPERCLIP_TELEMETRY_DISABLED: "1"
+    expose:
+      - "3100"
+    volumes:
+      - paperclip-data:/paperclip
+volumes:
+  paperclip-data:
