@@ -1,3 +1,4 @@
+import { uiText } from "@/i18n/ui-language";
 import { PrimaryAgentIndicator } from "@/components/primary-agent/PrimaryAgentPresentation";
 import { AgentBulkRoster } from "@/components/agents/AgentBulkRoster";
 import { AgentRosterFilters, useAgentRosterFilters } from "@/components/agents/AgentRosterFilters";
@@ -310,7 +311,7 @@ export function Agents() {
   }, [navigate, requestedTab]);
 
   if (!selectedCompanyId) {
-    return <EmptyState icon={Bot} message="Select a company to view agents." />;
+    return <EmptyState icon={Bot} message={uiText("Select a company to view agents.")} />;
   }
 
   // Keep a loaded list on screen through a failed refetch; only a real
@@ -386,7 +387,7 @@ export function Agents() {
         to={agentUrl(agent)}
         className="agent-roster-identity group py-3"
         leading={hasInvalidOrgChain ? (
-          <AlertTriangle className="h-3.5 w-3.5 text-amber-500" aria-label="Invalid reporting chain" />
+          <AlertTriangle className="h-3.5 w-3.5 text-amber-500" aria-label={uiText("Invalid reporting chain")} />
         ) : (
           <AgentAvatar agent={agent} size={32} />
         )}
@@ -397,7 +398,7 @@ export function Agents() {
             {showEnvironmentColumn && <span className="text-xs text-muted-foreground" title={resolveRenderedEnvironment(agent.id).title}>
               {resolveRenderedEnvironment(agent.id).label} · {resolveRenderedEnvironment(agent.id).detail}
             </span>}
-            {agent.lastHeartbeatAt && <span className="text-xs text-muted-foreground" title="Last heartbeat">{relativeTime(agent.lastHeartbeatAt)}</span>}
+            {agent.lastHeartbeatAt && <span className="text-xs text-muted-foreground" title={uiText("Last heartbeat")}>{relativeTime(agent.lastHeartbeatAt)}</span>}
           </div>
         )}
       />
@@ -423,15 +424,15 @@ export function Agents() {
         <div className="flex items-center gap-2">
           {/* View toggle */}
           {!forceListView && (
-            <div className="flex items-center border border-border" role="group" aria-label="View mode">
+            <div className="flex items-center border border-border" role="group" aria-label={uiText("View mode")}>
               <button
                 className={cn(
                   "p-1.5 transition-colors",
                   effectiveView === "list" ? "bg-accent text-foreground" : "text-muted-foreground hover:bg-accent/50"
                 )}
                 onClick={() => setView("list")}
-                title="List view"
-                aria-label="List view"
+                title={uiText("List view")}
+                aria-label={uiText("List view")}
                 aria-pressed={effectiveView === "list"}
               >
                 <List className="h-3.5 w-3.5" />
@@ -442,8 +443,8 @@ export function Agents() {
                   effectiveView === "org" ? "bg-accent text-foreground" : "text-muted-foreground hover:bg-accent/50"
                 )}
                 onClick={() => setView("org")}
-                title="Org chart view"
-                aria-label="Org chart view"
+                title={uiText("Org chart view")}
+                aria-label={uiText("Org chart view")}
                 aria-pressed={effectiveView === "org"}
               >
                 <GitBranch className="h-3.5 w-3.5" />
@@ -462,7 +463,7 @@ export function Agents() {
       {agents && agents.length === 0 && (
         <EmptyState
           icon={Bot}
-          message="Create your first agent to get started."
+          message={uiText("Create your first agent to get started.")}
           action="New Agent"
           onAction={openNewAgent}
         />
@@ -557,7 +558,7 @@ function OrgTreeNode({
         className="group flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-accent/50 transition-colors w-full text-left no-underline text-inherit"
       >
         {hasInvalidOrgChain ? (
-          <AlertTriangle className="h-3.5 w-3.5 shrink-0 text-amber-500" aria-label="Invalid reporting chain" />
+          <AlertTriangle className="h-3.5 w-3.5 shrink-0 text-amber-500" aria-label={uiText("Invalid reporting chain")} />
         ) : (
           <AgentAvatar agent={agent ?? node} size={24} />
         )}

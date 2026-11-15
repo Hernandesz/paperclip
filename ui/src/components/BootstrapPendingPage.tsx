@@ -1,3 +1,4 @@
+import { uiText } from "@/i18n/ui-language";
 import type { ReactNode } from "react";
 import { Loader2, ShieldCheck, Terminal, TriangleAlert } from "lucide-react";
 import { Link } from "@/lib/router";
@@ -20,7 +21,7 @@ function CliFallback({ hasActiveInvite = false }: { hasActiveInvite?: boolean })
     <div className="mt-6 border-t border-border pt-5">
       <div className="flex items-center gap-2 text-sm font-medium">
         <Terminal className="size-4 text-muted-foreground" aria-hidden />
-        <span>Prefer to finish setup from the host?</span>
+        <span>{uiText("Prefer to finish setup from the host?")}</span>
       </div>
       <p className="mt-2 text-sm text-muted-foreground">
         {hasActiveInvite
@@ -76,7 +77,7 @@ export function BootstrapPendingPage({
   if (!claimAvailable) {
     return (
       <StateChrome>
-        <h1 className="text-xl font-semibold">This Paperclip is waiting on its first admin</h1>
+        <h1 className="text-xl font-semibold">{uiText("This Paperclip is waiting on its first admin")}</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           This instance runs in invite-only mode. The operator must generate a one-time first-admin invite URL
           from the host. Once you have the link, open it from this browser to finish setup.
@@ -98,7 +99,7 @@ export function BootstrapPendingPage({
             <ShieldCheck className="size-5" aria-hidden />
           </div>
           <div>
-            <h1 className="text-xl font-semibold">You're the instance admin</h1>
+            <h1 className="text-xl font-semibold">{uiText("You're the instance admin")}</h1>
             <p className="mt-2 text-sm text-muted-foreground">
               Setup is complete. Taking you to onboarding to create your first organization...
             </p>
@@ -106,11 +107,11 @@ export function BootstrapPendingPage({
         </div>
         <div className="mt-5 flex items-center gap-3">
           <Loader2 className="size-4 animate-spin text-muted-foreground" aria-hidden />
-          <span className="text-sm text-muted-foreground">Redirecting...</span>
+          <span className="text-sm text-muted-foreground">{uiText("Redirecting...")}</span>
         </div>
         <div className="mt-5">
           <Button asChild variant="outline">
-            <a href="/">Continue to dashboard</a>
+            <a href="/">{uiText("Continue to dashboard")}</a>
           </Button>
         </div>
       </StateChrome>
@@ -120,14 +121,14 @@ export function BootstrapPendingPage({
   if (!session) {
     return (
       <StateChrome>
-        <h1 className="text-xl font-semibold">Finish setting up this Paperclip</h1>
+        <h1 className="text-xl font-semibold">{uiText("Finish setting up this Paperclip")}</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           No admin has claimed this instance yet. Sign in or create your Paperclip account to become the first
           admin from this browser.
         </p>
         <div className="mt-5">
           <Button asChild>
-            <Link to="/auth?next=/">Sign in / Create account</Link>
+            <Link to="/auth?next=/">{uiText("Sign in / Create account")}</Link>
           </Button>
         </div>
         <CliFallback hasActiveInvite={hasActiveInvite} />
@@ -139,7 +140,7 @@ export function BootstrapPendingPage({
   const isClaiming = claimState === "claiming";
   return (
     <StateChrome>
-      <h1 className="text-xl font-semibold">Finish setting up this Paperclip</h1>
+      <h1 className="text-xl font-semibold">{uiText("Finish setting up this Paperclip")}</h1>
       <p className="mt-2 text-sm text-muted-foreground">
         No admin has claimed this instance yet. Claim it now to become the first admin and start onboarding.
       </p>

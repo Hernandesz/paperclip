@@ -1,3 +1,4 @@
+import { uiText } from "@/i18n/ui-language";
 import { companyProjectsQuery } from "@/lib/company-projects-query";
 import { QueryErrorState, useQueryView } from "@/components/QueryView";
 import { useShowAgentCreatedTasks } from "../hooks/useShowAgentCreatedTasks";
@@ -156,9 +157,9 @@ function StreamlinedTasks() {
         toolbarContext={(
           <div className="flex min-w-0 items-center gap-2">
             {viewsMenu}
-            <Button size="sm" variant="outline" aria-label="New Task" onClick={() => openNewIssue()}>
+            <Button size="sm" variant="outline" aria-label={uiText("New Task")} onClick={() => openNewIssue()}>
               <Plus className="h-4 w-4 sm:mr-1" />
-              <span className="hidden sm:inline">New Task</span>
+              <span className="hidden sm:inline">{uiText("New Task")}</span>
             </Button>
           </div>
         )}

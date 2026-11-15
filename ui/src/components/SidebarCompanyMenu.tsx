@@ -1,3 +1,4 @@
+import { uiText } from "@/i18n/ui-language";
 import { useCallback, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -344,7 +345,7 @@ function BuiltinCompanyMenu({ open: controlledOpen, onOpenChange, showChevron = 
             // offer the way back.
             companyListUnavailable ? (
               <>
-                <DropdownMenuItem disabled>Couldn&apos;t load organizations</DropdownMenuItem>
+                <DropdownMenuItem disabled>{uiText("Couldn&apos;t load organizations")}</DropdownMenuItem>
                 <DropdownMenuItem
                   onSelect={(event) => {
                     // Keep the menu open so the result of the retry is visible.
@@ -357,7 +358,7 @@ function BuiltinCompanyMenu({ open: controlledOpen, onOpenChange, showChevron = 
                 </DropdownMenuItem>
               </>
             ) : (
-              <DropdownMenuItem disabled>No organizations</DropdownMenuItem>
+              <DropdownMenuItem disabled>{uiText("No organizations")}</DropdownMenuItem>
             )
           ) : null}
         </FlyoutOptions>
@@ -371,7 +372,7 @@ function BuiltinCompanyMenu({ open: controlledOpen, onOpenChange, showChevron = 
               <span className="flex size-5 shrink-0 items-center justify-center text-muted-foreground">
                 <Plus className="size-4" />
               </span>
-              <TruncatedText className="min-w-0 flex-1 truncate">Create organization</TruncatedText>
+              <TruncatedText className="min-w-0 flex-1 truncate">{uiText("Create organization")}</TruncatedText>
             </DropdownMenuItem>
           )}
           {showInvitePeople ? (

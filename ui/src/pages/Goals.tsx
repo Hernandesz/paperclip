@@ -1,3 +1,4 @@
+import { uiText } from "@/i18n/ui-language";
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { goalsApi } from "../api/goals";
@@ -30,7 +31,7 @@ export function Goals() {
   const goalsView = useQueryView(goalsQuery);
 
   if (!selectedCompanyId) {
-    return <EmptyState icon={Target} message="Select an organization to view goals." />;
+    return <EmptyState icon={Target} message={uiText("Select an organization to view goals.")} />;
   }
 
   // Keep a loaded list on screen through a failed refetch; only a real
@@ -55,7 +56,7 @@ export function Goals() {
       {goals && goals.length === 0 && (
         <EmptyState
           icon={Target}
-          message="No goals yet."
+          message={uiText("No goals yet.")}
           action="Add Goal"
           onAction={() => openNewGoal()}
         />
