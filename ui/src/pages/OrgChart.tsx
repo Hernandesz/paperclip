@@ -1,3 +1,4 @@
+import { uiText } from "@/i18n/ui-language";
 import { AdapterMark } from "@/components/AdapterMark";
 import { models as claudeModels } from "@paperclipai/adapter-claude-local";
 import { models as codexModels } from "@paperclipai/adapter-codex-local";
@@ -458,7 +459,7 @@ export function OrgChart({ orgTree: providedOrgTree, agents: providedAgents, mat
   useImperativeHandle(actionsRef, () => cameraActions, [cameraActions]);
   const controls = (
     <OrgChartControls {...cameraActions}>
-      {enableTaskLayer && <Button variant={showTasks ? "secondary" : "outline"} size="sm" aria-pressed={showTasks} onClick={() => setShowTasks(value => !value)}><Layers className="size-4" />Tasks</Button>}
+      {enableTaskLayer && <Button variant={showTasks ? "secondary" : "outline"} size="sm" aria-pressed={showTasks} onClick={() => setShowTasks(value => !value)}><Layers className="size-4" />{uiText("Tasks")}</Button>}
     </OrgChartControls>
   );
   const taskWidth = Math.min(geometry.taskLabelWidth, Math.max(0, viewport.width - geometry.padding * 2));
@@ -480,7 +481,7 @@ export function OrgChart({ orgTree: providedOrgTree, agents: providedAgents, mat
   }, [tasks, taskStartX, taskWidth, taskGap, taskScroll, viewport.width, nodesById]);
 
   if (!selectedCompanyId) {
-    return <EmptyState icon={Network} message="Select an organization to view the org chart." />;
+    return <EmptyState icon={Network} message={uiText("Select an organization to view the org chart.")} />;
   }
 
   // Keep a loaded chart on screen through a failed refetch; only a real
@@ -502,7 +503,7 @@ export function OrgChart({ orgTree: providedOrgTree, agents: providedAgents, mat
   }
 
   if (orgTree && orgTree.length === 0) {
-    return <EmptyState icon={Network} message="No organizational hierarchy defined." />;
+    return <EmptyState icon={Network} message={uiText("No organizational hierarchy defined.")} />;
   }
 
   return (

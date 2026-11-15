@@ -1,3 +1,4 @@
+import { uiText } from "@/i18n/ui-language";
 import { useCoordinatorWorkspaceEnabled } from "@/hooks/useCoordinatorWorkspaceEnabled";
 import { useMemo } from "react";
 import { useCoordinatorAttentionCount } from "@/hooks/useCoordinatorAttentionCount";
@@ -101,7 +102,7 @@ export function MobileBottomNav({ visible }: MobileBottomNavProps) {
       )}
       data-visible={visible}
       inert={!visible}
-      aria-label="Mobile navigation"
+      aria-label={uiText("Mobile navigation")}
     >
       <div
         className="grid h-16 px-1"

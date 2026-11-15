@@ -1,3 +1,4 @@
+import { uiText } from "@/i18n/ui-language";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
@@ -1981,7 +1982,7 @@ export function Secrets() {
         : fullTrail;
 
     return (
-      <nav aria-label="Breadcrumb" className="min-w-0">
+      <nav aria-label={uiText("Breadcrumb")} className="min-w-0">
         {/* Wide: full trail */}
         <ol className="hidden min-w-0 items-center gap-1 text-sm @min-[40rem]:flex">
           {collapsed.map((crumb, index) => {
@@ -2014,7 +2015,7 @@ export function Secrets() {
             <>
               <Link
                 to={folderLinkTo(parentFolderPath)}
-                aria-label="Up one folder"
+                aria-label={uiText("Up one folder")}
                 className="shrink-0 text-muted-foreground hover:text-foreground"
               >
                 <ChevronLeft className="h-4 w-4" />
@@ -2190,7 +2191,7 @@ export function Secrets() {
 
   if (!selectedCompanyId) {
     return (
-      <div className="p-6 text-sm text-muted-foreground">Select an organization to manage secrets.</div>
+      <div className="p-6 text-sm text-muted-foreground">{uiText("Select an organization to manage secrets.")}</div>
     );
   }
 
@@ -2201,12 +2202,12 @@ export function Secrets() {
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <KeyRound className="h-5 w-5 text-muted-foreground" />
-            <h1 className="text-lg font-semibold">Secrets</h1>
+            <h1 className="text-lg font-semibold">{uiText("Secrets")}</h1>
           </div>
           <div className="flex items-center gap-2">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon-sm" aria-label="More secret actions">
+                <Button variant="ghost" size="icon-sm" aria-label={uiText("More secret actions")}>
                   <MoreHorizontal className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -2274,15 +2275,15 @@ export function Secrets() {
         />
 
         <TabsContent value="secrets" className="flex flex-col gap-3">
-          <div data-canonical-toolbar="secrets" role="toolbar" aria-label="Secrets controls" className="flex flex-wrap items-center gap-2">
+          <div data-canonical-toolbar="secrets" role="toolbar" aria-label={uiText("Secrets controls")} className="flex flex-wrap items-center gap-2">
             <div className="relative w-48 sm:w-64 md:w-80">
               <Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
               <Input
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
-                placeholder="Search all secrets"
+                placeholder={uiText("Search all secrets")}
                 className="pl-7 text-xs sm:text-sm"
-                aria-label="Search secrets"
+                aria-label={uiText("Search secrets")}
                 data-page-search-target="true"
               />
             </div>
@@ -2310,7 +2311,7 @@ export function Secrets() {
             ))}
           </div>
           {newFolderOpen && showFolderView ? (
-            <div className="flex flex-wrap items-start gap-2" role="group" aria-label="Create folder">
+            <div className="flex flex-wrap items-start gap-2" role="group" aria-label={uiText("Create folder")}>
               <div className="min-w-48 flex-1 sm:max-w-80">
                 <Input
                   value={newFolderName}
@@ -2322,8 +2323,8 @@ export function Secrets() {
                     if (event.key === "Enter") stageNewFolder();
                     if (event.key === "Escape") closeNewFolder();
                   }}
-                  placeholder="Folder name"
-                  aria-label="Folder name"
+                  placeholder={uiText("Folder name")}
+                  aria-label={uiText("Folder name")}
                   aria-invalid={Boolean(newFolderError)}
                   autoFocus
                 />
@@ -2359,8 +2360,8 @@ export function Secrets() {
               !(showFolderView && folderPath) ? (
               <EmptyState
                 icon={KeyRound}
-                title="No secrets yet"
-                message="Add an API key or token once, then choose which agents can use it."
+                title={uiText("No secrets yet")}
+                message={uiText("Add an API key or token once, then choose which agents can use it.")}
                 action="New secret"
                 onAction={openCreateSecret}
               />
@@ -2388,7 +2389,7 @@ export function Secrets() {
                   ) : showFolderView && folderPath && activeSecretFilterCount === 0 ? (
                     <EmptyState
                       icon={FolderOpen}
-                      message="No secrets in this folder yet."
+                      message={uiText("No secrets in this folder yet.")}
                       action="New secret here"
                       onAction={openCreateSecret}
                     />
@@ -2408,7 +2409,7 @@ export function Secrets() {
                   <>
                     <div
                       role="table"
-                      aria-label="Secrets"
+                      aria-label={uiText("Secrets")}
                       className="hidden min-w-0 @min-[40rem]:block"
                       data-testid="secrets-table-view"
                     >
@@ -2416,11 +2417,11 @@ export function Secrets() {
                         role="row"
                         className="grid grid-cols-(--gtc-54) items-center gap-3 border-b border-border px-3 py-2 text-xs font-medium text-muted-foreground"
                       >
-                        <div role="columnheader">Name</div>
-                        <div role="columnheader">Provided by</div>
-                        <div role="columnheader">Used by</div>
-                        <div role="columnheader">Updated</div>
-                        <div role="columnheader" className="sr-only">Actions</div>
+                        <div role="columnheader">{uiText("Name")}</div>
+                        <div role="columnheader">{uiText("Provided by")}</div>
+                        <div role="columnheader">{uiText("Used by")}</div>
+                        <div role="columnheader">{uiText("Updated")}</div>
+                        <div role="columnheader" className="sr-only">{uiText("Actions")}</div>
                       </div>
                       <div role="rowgroup">
                         {showUpRow ? renderUpRow("table") : null}
@@ -2436,7 +2437,7 @@ export function Secrets() {
                   </>
                 )}
                 {showManagedSection && !secretsListLoading ? (
-                  <section aria-label="Managed by Paperclip" className="mt-6" data-testid="managed-secrets">
+                  <section aria-label={uiText("Managed by Paperclip")} className="mt-6" data-testid="managed-secrets">
                     <button
                       type="button"
                       className="flex w-full items-center gap-2 border-b border-border px-3 py-2.5 text-left hover:bg-accent/40"
@@ -2450,7 +2451,7 @@ export function Secrets() {
                         )}
                         aria-hidden
                       />
-                      <span className="shrink-0 text-sm font-medium">Managed by Paperclip</span>
+                      <span className="shrink-0 text-sm font-medium">{uiText("Managed by Paperclip")}</span>
                       <span className="shrink-0 text-sm tabular-nums text-muted-foreground">{managedCount}</span>
                       <span className="hidden min-w-0 truncate text-sm text-muted-foreground @min-[40rem]:inline">
                         · Saved by your connections and sign-ins, and kept up to date for you
@@ -2557,14 +2558,14 @@ export function Secrets() {
                   {providerLabel(providers, selectedSecret.provider)} secret {selectedSecret.key}
                 </SheetDescription>
                 <div className="flex min-w-0 items-center gap-1.5 text-xs text-muted-foreground">
-                  <span className="shrink-0">Key</span>
+                  <span className="shrink-0">{uiText("Key")}</span>
                   <code className="min-w-0 truncate font-mono text-foreground">{selectedSecret.key}</code>
                   <Button
                     type="button"
                     variant="ghost"
                     size="icon-xs"
                     className="shrink-0"
-                    aria-label="Copy key"
+                    aria-label={uiText("Copy key")}
                     onClick={() => copySecretKey(selectedSecret.key)}
                   >
                     <Copy />
@@ -2639,11 +2640,11 @@ export function Secrets() {
                   reference={selectedSecretAccessReference!}
                 />
                 {otherSecretUses.length > 0 ? (
-                  <DetailSection title="Also set in">
+                  <DetailSection title={uiText("Also set in")}>
                     <SecretUsageTab loading={false} bindings={otherSecretUses} />
                   </DetailSection>
                 ) : null}
-                <DetailSection title="Details">
+                <DetailSection title={uiText("Details")}>
                   <SecretDetailsTab
                     secret={selectedSecret}
                     providers={providers}
@@ -2658,7 +2659,7 @@ export function Secrets() {
                     }
                   />
                 </DetailSection>
-                <DetailSection title="Activity">
+                <DetailSection title={uiText("Activity")}>
                   <SecretEventsTab
                     loading={eventsQuery.isPending}
                     events={eventsQuery.data ?? []}
@@ -2683,14 +2684,14 @@ export function Secrets() {
                   Secret each user provides, {selectedDefinition.key}
                 </SheetDescription>
                 <div className="flex min-w-0 items-center gap-1.5 text-xs text-muted-foreground">
-                  <span className="shrink-0">Key</span>
+                  <span className="shrink-0">{uiText("Key")}</span>
                   <code className="min-w-0 truncate font-mono text-foreground">{selectedDefinition.key}</code>
                   <Button
                     type="button"
                     variant="ghost"
                     size="icon-xs"
                     className="shrink-0"
-                    aria-label="Copy key"
+                    aria-label={uiText("Copy key")}
                     onClick={() => copySecretKey(selectedDefinition.key)}
                   >
                     <Copy />
@@ -2776,13 +2777,13 @@ export function Secrets() {
                   companyId={selectedCompanyId}
                   reference={selectedDefinitionAccessReference!}
                 />
-                <DetailSection title="Members">
+                <DetailSection title={uiText("Members")}>
                   <UserSecretCoverageTab
                     companyId={selectedCompanyId}
                     definitionId={selectedDefinition.id}
                   />
                 </DetailSection>
-                <DetailSection title="Details">
+                <DetailSection title={uiText("Details")}>
                   <UserSecretDetailsTab definition={selectedDefinition} />
                 </DetailSection>
               </div>
@@ -2841,7 +2842,7 @@ export function Secrets() {
             }}
           >
             <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium" htmlFor="new-secret-name">Name</label>
+              <label className="text-sm font-medium" htmlFor="new-secret-name">{uiText("Name")}</label>
               <div className="flex items-center gap-2">
                 {createNamePrefix && !editingDefinition ? (
                   <span
@@ -2853,7 +2854,7 @@ export function Secrets() {
                     <button
                       type="button"
                       className="shrink-0 rounded-sm hover:text-foreground"
-                      aria-label="Remove folder prefix"
+                      aria-label={uiText("Remove folder prefix")}
                       onClick={() => setCreateNamePrefix(null)}
                     >
                       <X className="h-3.5 w-3.5" />
@@ -2894,7 +2895,7 @@ export function Secrets() {
 
             {!editingDefinition ? (
               <div className="flex flex-col gap-1.5">
-                <p className="text-sm font-medium">Who provides the value</p>
+                <p className="text-sm font-medium">{uiText("Who provides the value")}</p>
                 <RadioCardGroup
                   ariaLabel="Who provides the value"
                   className="grid-cols-1 sm:grid-cols-2"
@@ -2932,7 +2933,7 @@ export function Secrets() {
 
             {secretValueProvider === "company" && createMode === "managed" ? (
               <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-medium" htmlFor="new-secret-value">Value</label>
+                <label className="text-sm font-medium" htmlFor="new-secret-value">{uiText("Value")}</label>
                 <div className="relative">
                   <Textarea
                     id="new-secret-value"
@@ -3038,7 +3039,7 @@ export function Secrets() {
                   onChange={(event) =>
                     setCreateForm((current) => ({ ...current, usageGuidance: event.target.value }))
                   }
-                  placeholder="Where to create the key and which permissions it needs"
+                  placeholder={uiText("Where to create the key and which permissions it needs")}
                   className="min-h-(--sz-70px) text-sm"
                 />
                 <p className="text-xs text-muted-foreground">
@@ -3049,7 +3050,7 @@ export function Secrets() {
 
             {secretValueProvider === "company" && createVaultOptions.length > 1 ? (
               <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-medium" htmlFor="new-secret-vault">Stored in</label>
+                <label className="text-sm font-medium" htmlFor="new-secret-vault">{uiText("Stored in")}</label>
                 <select
                   id="new-secret-vault"
                   className="h-9 w-full rounded-md border border-border bg-background px-2 text-sm outline-none aria-invalid:border-destructive"
@@ -3148,7 +3149,7 @@ export function Secrets() {
                     triggerVariant="outline"
                     triggerSize="sm"
                     contentAlign="start"
-                    emptyMessage="No agents yet."
+                    emptyMessage={uiText("No agents yet.")}
                     showSelectionPreview={false}
                   />
                 </div>
@@ -3179,14 +3180,14 @@ export function Secrets() {
               {createMoreOpen ? (
                 <div id="new-secret-more" className="flex flex-col gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-medium" htmlFor="new-secret-description">Description</label>
+                    <label className="text-sm font-medium" htmlFor="new-secret-description">{uiText("Description")}</label>
                     <Input
                       id="new-secret-description"
                       value={createForm.description}
                       onChange={(event) =>
                         setCreateForm((current) => ({ ...current, description: event.target.value }))
                       }
-                      placeholder="What it is for"
+                      placeholder={uiText("What it is for")}
                     />
                   </div>
                   <div className="flex flex-col gap-1.5">
@@ -3282,7 +3283,7 @@ export function Secrets() {
           >
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-medium" htmlFor="vault-name">Name</label>
+                <label className="text-sm font-medium" htmlFor="vault-name">{uiText("Name")}</label>
                 <Input
                   id="vault-name"
                   value={vaultForm.displayName}
@@ -3300,7 +3301,7 @@ export function Secrets() {
               </div>
               {vaultForm.provider === "aws_secrets_manager" ? (
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-medium" htmlFor="provider-vault-aws-region">AWS region</label>
+                  <label className="text-sm font-medium" htmlFor="provider-vault-aws-region">{uiText("AWS region")}</label>
                   <Input
                     id="provider-vault-aws-region"
                     value={vaultForm.region}
@@ -3338,7 +3339,7 @@ export function Secrets() {
                       ? "Use for new secrets by default"
                       : `Use for new ${providerLabel(providers, vaultForm.provider)} secrets by default`}
                   </span>
-                  <span className="text-xs text-muted-foreground">Existing secrets stay where they are.</span>
+                  <span className="text-xs text-muted-foreground">{uiText("Existing secrets stay where they are.")}</span>
                 </span>
               </label>
             )}
@@ -3416,13 +3417,13 @@ export function Secrets() {
           {selectedSecret && secretSupportsExternalValueWrite(selectedSecret) ? (
             <Tabs value={rotateMode} onValueChange={(value) => setRotateMode(value as RotateMode)}>
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="value">Replace value</TabsTrigger>
-                <TabsTrigger value="reference">Change reference</TabsTrigger>
+                <TabsTrigger value="value">{uiText("Replace value")}</TabsTrigger>
+                <TabsTrigger value="reference">{uiText("Change reference")}</TabsTrigger>
               </TabsList>
             </Tabs>
           ) : null}
           <div>
-            <label className="text-sm font-medium" htmlFor="rotate-secret-vault">Stored in</label>
+            <label className="text-sm font-medium" htmlFor="rotate-secret-vault">{uiText("Stored in")}</label>
             <select
               id="rotate-secret-vault"
               className="h-9 w-full rounded-md border border-border bg-background px-2 text-sm outline-none"
@@ -3451,7 +3452,7 @@ export function Secrets() {
           </div>
           {selectedSecret?.managedMode === "external_reference" && rotateMode === "reference" ? (
             <div>
-              <label className="text-sm font-medium" htmlFor="rotate-ref">New ARN or path</label>
+              <label className="text-sm font-medium" htmlFor="rotate-ref">{uiText("New ARN or path")}</label>
               <Input
                 id="rotate-ref"
                 value={rotateExternalRef}
@@ -3465,14 +3466,14 @@ export function Secrets() {
             </div>
           ) : (
             <div>
-              <label className="text-sm font-medium" htmlFor="rotate-value">New value</label>
+              <label className="text-sm font-medium" htmlFor="rotate-value">{uiText("New value")}</label>
               <Textarea
                 id="rotate-value"
                 value={rotateValue}
                 onChange={(event) => setRotateValue(event.target.value)}
                 rows={3}
                 className="font-mono text-xs"
-                placeholder="Paste the new value"
+                placeholder={uiText("Paste the new value")}
               />
               {selectedSecret?.managedMode === "external_reference" ? (
                 <p className="mt-1 text-(length:--text-micro) text-muted-foreground">
@@ -3511,13 +3512,13 @@ export function Secrets() {
       <Dialog open={Boolean(deleteConfirm)} onOpenChange={(open) => !open && setDeleteConfirm(null)}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Delete secret</DialogTitle>
+            <DialogTitle>{uiText("Delete secret")}</DialogTitle>
             <DialogDescription>
               Permanently removes <strong>{deleteConfirm?.name}</strong>. Agents and projects that use it will fail until you give them another secret.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="ghost" className="sm:mr-auto" onClick={() => setDeleteConfirm(null)}>Cancel</Button>
+            <Button variant="ghost" className="sm:mr-auto" onClick={() => setDeleteConfirm(null)}>{uiText("Cancel")}</Button>
             <Button
               variant="destructive"
               onClick={() => deleteConfirm && deleteMutation.mutate(deleteConfirm.id)}
@@ -3536,14 +3537,14 @@ export function Secrets() {
       >
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Delete secret</DialogTitle>
+            <DialogTitle>{uiText("Delete secret")}</DialogTitle>
             <DialogDescription>
               Permanently removes <strong>{definitionDeleteConfirm?.name}</strong> for the whole organization.
               Members' saved values stop being used, and agents that rely on it will fail until you give them another secret.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="ghost" className="sm:mr-auto" onClick={() => setDefinitionDeleteConfirm(null)}>Cancel</Button>
+            <Button variant="ghost" className="sm:mr-auto" onClick={() => setDefinitionDeleteConfirm(null)}>{uiText("Cancel")}</Button>
             <Button
               variant="destructive"
               onClick={() =>
@@ -3581,7 +3582,7 @@ export function Secrets() {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="ghost" className="sm:mr-auto" onClick={() => setRemoveVaultConfirm(null)}>Cancel</Button>
+            <Button variant="ghost" className="sm:mr-auto" onClick={() => setRemoveVaultConfirm(null)}>{uiText("Cancel")}</Button>
             <Button
               variant="destructive"
               onClick={() => removeVaultConfirm && removeVaultMutation.mutate(removeVaultConfirm.id)}
@@ -3654,7 +3655,7 @@ function SecretsFiltersPopover({
       </PopoverTrigger>
       <PopoverContent align="start" className="flex w-64 flex-col gap-4 p-3">
         <FilterChoices
-          label="Provided by"
+          label={uiText("Provided by")}
           value={providedByFilter}
           onChange={onProvidedByChange}
           options={[
@@ -3665,7 +3666,7 @@ function SecretsFiltersPopover({
         />
         {providers.length > 1 ? (
           <FilterChoices
-            label="Stored in"
+            label={uiText("Stored in")}
             value={providerFilter}
             onChange={onProviderChange}
             options={[
@@ -3678,7 +3679,7 @@ function SecretsFiltersPopover({
           />
         ) : null}
         <FilterChoices
-          label="Status"
+          label={uiText("Status")}
           value={statusFilter}
           onChange={onStatusChange}
           options={[
@@ -3815,7 +3816,7 @@ export function ProviderVaultsTab({
   const builtInCount = secretCounts?.get("built-in:local_encrypted") ?? 0;
 
   return (
-    <section aria-label="Vaults" className="flex flex-col gap-4">
+    <section aria-label={uiText("Vaults")} className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="max-w-xl text-sm text-muted-foreground">
           Where secret values are kept. Paperclip encrypts them itself unless you connect a vault of your own.
@@ -3834,7 +3835,7 @@ export function ProviderVaultsTab({
                   {providerId === "local_encrypted"
                     ? "Paperclip-encrypted vault"
                     : providerMap.get(providerId)?.label ?? providerId.replaceAll("_", " ")}
-                  {comingSoon ? <span className="ml-auto pl-4 text-xs text-muted-foreground">Coming soon</span> : null}
+                  {comingSoon ? <span className="ml-auto pl-4 text-xs text-muted-foreground">{uiText("Coming soon")}</span> : null}
                 </DropdownMenuItem>
               );
             })}
@@ -3847,9 +3848,9 @@ export function ProviderVaultsTab({
           <div className="flex min-w-0 flex-1 flex-col gap-1">
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-sm font-medium">Paperclip</span>
-              {effectiveLocalDefaultId ? null : <Badge variant="secondary">Default</Badge>}
+              {effectiveLocalDefaultId ? null : <Badge variant="secondary">{uiText("Default")}</Badge>}
             </div>
-            <p className="text-xs text-muted-foreground">Encrypted and stored by Paperclip. Always available.</p>
+            <p className="text-xs text-muted-foreground">{uiText("Encrypted and stored by Paperclip. Always available.")}</p>
           </div>
           {secretCounts ? (
             <span className="shrink-0 pt-0.5 text-sm tabular-nums text-muted-foreground">
@@ -3920,14 +3921,14 @@ function ProviderVaultCard({
           <h3 className="text-sm font-medium">{config.displayName}</h3>
           <span className="text-sm text-muted-foreground">{providerName}</span>
           {isOverallDefault ? (
-            <Badge variant="secondary">Default</Badge>
+            <Badge variant="secondary">{uiText("Default")}</Badge>
           ) : config.isDefault && config.provider !== "local_encrypted" ? (
             <Badge variant="outline" className="text-muted-foreground">Default for {providerName}</Badge>
           ) : null}
           {config.status === "disabled" ? (
-            <Badge variant="outline" className="text-muted-foreground">Disabled</Badge>
+            <Badge variant="outline" className="text-muted-foreground">{uiText("Disabled")}</Badge>
           ) : config.status === "coming_soon" ? (
-            <Badge variant="outline" className="text-muted-foreground">Not available yet</Badge>
+            <Badge variant="outline" className="text-muted-foreground">{uiText("Not available yet")}</Badge>
           ) : null}
         </div>
         {unavailable ? (
@@ -3965,7 +3966,7 @@ function ProviderVaultCard({
             {formatRelative(config.healthCheckedAt)}
           </p>
         ) : (
-          <p className="text-xs text-muted-foreground">Not checked yet</p>
+          <p className="text-xs text-muted-foreground">{uiText("Not checked yet")}</p>
         )}
       </div>
       {secretCount !== null ? (
@@ -4056,11 +4057,11 @@ function ProviderVaultFields({
   if (form.provider === "aws_secrets_manager") {
     return (
       <div className="grid gap-3 sm:grid-cols-2">
-        <TextField label="Namespace" value={form.namespace} onChange={(value) => setField("namespace", value)} placeholder="production" />
-        <TextField label="Secret name prefix" value={form.secretNamePrefix} onChange={(value) => setField("secretNamePrefix", value)} placeholder="paperclip" />
+        <TextField label={uiText("Namespace")} value={form.namespace} onChange={(value) => setField("namespace", value)} placeholder="production" />
+        <TextField label={uiText("Secret name prefix")} value={form.secretNamePrefix} onChange={(value) => setField("secretNamePrefix", value)} placeholder="paperclip" />
         <TextField label="KMS key id" value={form.kmsKeyId} onChange={(value) => setField("kmsKeyId", value)} placeholder="alias/paperclip-secrets" />
-        <TextField label="Owner tag" value={form.ownerTag} onChange={(value) => setField("ownerTag", value)} placeholder="platform" />
-        <TextField label="Environment tag" value={form.environmentTag} onChange={(value) => setField("environmentTag", value)} placeholder="prod" />
+        <TextField label={uiText("Owner tag")} value={form.ownerTag} onChange={(value) => setField("ownerTag", value)} placeholder="platform" />
+        <TextField label={uiText("Environment tag")} value={form.environmentTag} onChange={(value) => setField("environmentTag", value)} placeholder="prod" />
       </div>
     );
   }
@@ -4068,10 +4069,10 @@ function ProviderVaultFields({
   if (form.provider === "gcp_secret_manager") {
     return (
       <div className="grid gap-3 sm:grid-cols-2">
-        <TextField label="Project id" value={form.projectId} onChange={(value) => setField("projectId", value)} placeholder="paperclip-prod" />
-        <TextField label="Location" value={form.location} onChange={(value) => setField("location", value)} placeholder="global" />
-        <TextField label="Namespace" value={form.namespace} onChange={(value) => setField("namespace", value)} placeholder="production" />
-        <TextField label="Secret name prefix" value={form.secretNamePrefix} onChange={(value) => setField("secretNamePrefix", value)} placeholder="paperclip" />
+        <TextField label={uiText("Project id")} value={form.projectId} onChange={(value) => setField("projectId", value)} placeholder="paperclip-prod" />
+        <TextField label={uiText("Location")} value={form.location} onChange={(value) => setField("location", value)} placeholder="global" />
+        <TextField label={uiText("Namespace")} value={form.namespace} onChange={(value) => setField("namespace", value)} placeholder="production" />
+        <TextField label={uiText("Secret name prefix")} value={form.secretNamePrefix} onChange={(value) => setField("secretNamePrefix", value)} placeholder="paperclip" />
       </div>
     );
   }
@@ -4079,7 +4080,7 @@ function ProviderVaultFields({
   return (
     <div className="grid gap-3 sm:grid-cols-2">
       <TextField label="Address" value={form.address} onChange={(value) => setField("address", value)} placeholder="https://vault.example.com" />
-      <TextField label="Namespace" value={form.namespace} onChange={(value) => setField("namespace", value)} placeholder="admin" />
+      <TextField label={uiText("Namespace")} value={form.namespace} onChange={(value) => setField("namespace", value)} placeholder="admin" />
       <TextField label="Mount path" value={form.mountPath} onChange={(value) => setField("mountPath", value)} placeholder="secret" />
       <TextField label="Secret path prefix" value={form.secretPathPrefix} onChange={(value) => setField("secretPathPrefix", value)} placeholder="paperclip/prod" />
     </div>
@@ -4261,7 +4262,7 @@ function AwsProviderVaultDiscoveryError({
               <dd>{details?.operation ?? "secret_provider_config.discovery.preview"}</dd>
             </div>
             <div>
-              <dt className="font-medium">Provider</dt>
+              <dt className="font-medium">{uiText("Provider")}</dt>
               <dd>{details?.provider ?? "aws_secrets_manager"}</dd>
             </div>
             <div>
@@ -4506,15 +4507,15 @@ function DetailSection({ title, children }: { title: string; children: React.Rea
 function UserSecretDetailsTab({ definition }: { definition: UserSecretDefinition }) {
   return (
     <dl className="flex flex-col text-sm">
-      <DetailRow label="Provided by">Each user</DetailRow>
-      <DetailRow label="Description">
+      <DetailRow label={uiText("Provided by")}>{uiText("Each user")}</DetailRow>
+      <DetailRow label={uiText("Description")}>
         {definition.description ?? <span className="text-muted-foreground">—</span>}
       </DetailRow>
-      <DetailRow label="Instructions">
+      <DetailRow label={uiText("Instructions")}>
         {definition.usageGuidance ?? <span className="text-muted-foreground">—</span>}
       </DetailRow>
       <DetailRow label="Created">{formatRelative(definition.createdAt)}</DetailRow>
-      <DetailRow label="Updated">{formatRelative(definition.updatedAt)}</DetailRow>
+      <DetailRow label={uiText("Updated")}>{formatRelative(definition.updatedAt)}</DetailRow>
     </dl>
   );
 }
@@ -4791,7 +4792,7 @@ function SecretDetailsTab({
   );
   return (
     <dl className="flex flex-col text-sm">
-      <DetailRow label="Provided by">Organization</DetailRow>
+      <DetailRow label={uiText("Provided by")}>{uiText("Organization")}</DetailRow>
       <DetailRow label={linked ? "Linked from" : "Stored in"}>
         {onManageVaults ? (
           <button type="button" className="text-left hover:underline" onClick={onManageVaults}>
@@ -4817,7 +4818,7 @@ function SecretDetailsTab({
           ) : null}
         </DetailRow>
       ) : null}
-      <DetailRow label="Description">
+      <DetailRow label={uiText("Description")}>
         {secret.description ?? <span className="text-muted-foreground">—</span>}
       </DetailRow>
       <DetailRow label={linked && !canWriteExternalValue ? "Reference changed" : "Value replaced"}>
