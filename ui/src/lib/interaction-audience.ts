@@ -1,3 +1,4 @@
+import { uiText } from "@/i18n/ui-language";
 /**
  * Plain-language presentation of *who may resolve* an issue-thread interaction.
  *
@@ -35,9 +36,9 @@ export const DEFAULT_RESOLVER_POLICY: IssueThreadInteractionCanonicalResolverPol
 
 /** Short label for a resolver audience — badges, select options, table cells. */
 const RESOLVER_POLICY_LABELS: Record<IssueThreadInteractionCanonicalResolverPolicy, string> = {
-  anyone: "Anyone",
-  not_creator: "Anyone except creator",
-  human_only: "Human only",
+  anyone: uiText("Anyone"),
+  not_creator: uiText("Anyone except creator"),
+  human_only: uiText("Human only"),
 };
 
 /**

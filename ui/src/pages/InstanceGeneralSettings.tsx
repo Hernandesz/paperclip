@@ -33,7 +33,7 @@ export function InstanceGeneralSettings({ embedded = false }: { embedded?: boole
   useEffect(() => {
     if (embedded) return;
     setBreadcrumbs([
-      { label: "Settings", href: "/company/settings" },
+      { label: uiText("Settings"), href: "/company/settings" },
       { label: "General" },
     ]);
   }, [embedded, setBreadcrumbs]);
@@ -134,23 +134,23 @@ export function InstanceGeneralSettings({ embedded = false }: { embedded?: boole
           </div>
           <div className="text-sm text-muted-foreground">
             {healthQuery.data?.deploymentMode === "local_trusted"
-              ? "Local trusted mode is optimized for a local operator. Browser requests run as local board context and no sign-in is required."
+              ? uiText("Local trusted mode is optimized for a local operator. Browser requests run as local board context and no sign-in is required.")
               : healthQuery.data?.deploymentExposure === "public"
-                ? "Authenticated public mode requires sign-in for board access and is intended for public URLs."
-                : "Authenticated private mode requires sign-in and is intended for LAN, VPN, or other private-network deployments."}
+                ? uiText("Authenticated public mode requires sign-in for board access and is intended for public URLs.")
+                : uiText("Authenticated private mode requires sign-in and is intended for LAN, VPN, or other private-network deployments.")}
           </div>
           <div className="grid gap-3 md:grid-cols-3">
             <StatusBox
               label={uiText("Auth readiness")}
-              value={healthQuery.data?.authReady ? "Ready" : "Not ready"}
+              value={healthQuery.data?.authReady ? uiText("Ready") : uiText("Not ready")}
             />
             <StatusBox
               label={uiText("Bootstrap status")}
-              value={healthQuery.data?.bootstrapStatus === "bootstrap_pending" ? "Setup required" : "Ready"}
+              value={healthQuery.data?.bootstrapStatus === "bootstrap_pending" ? uiText("Setup required") : uiText("Ready")}
             />
             <StatusBox
               label={uiText("Bootstrap invite")}
-              value={healthQuery.data?.bootstrapInviteActive ? "Active" : "None"}
+              value={healthQuery.data?.bootstrapInviteActive ? uiText("Active") : uiText("None")}
             />
           </div>
         </div>
@@ -162,11 +162,7 @@ export function InstanceGeneralSettings({ embedded = false }: { embedded?: boole
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1.5">
             <h2 className="text-sm font-semibold">{uiText("Censor username in logs")}</h2>
-            <p className="max-w-2xl text-sm text-muted-foreground">
-              Hide the username segment in home-directory paths and similar operator-visible log output. Standalone
-              username mentions outside of paths are not yet masked in the live transcript view. This is off by
-              default.
-            </p>
+            <p className="max-w-2xl text-sm text-muted-foreground">{uiText("Hide the username segment in home-directory paths and similar operator-visible log output. Standalone username mentions outside of paths are not yet masked in the live transcript view. This is off by default.")}</p>
           </div>
           <ToggleSwitch
             checked={censorUsernameInLogs}
@@ -183,11 +179,7 @@ export function InstanceGeneralSettings({ embedded = false }: { embedded?: boole
         <div className="space-y-5">
           <div className="space-y-1.5">
             <h2 className="text-sm font-semibold">{uiText("Backup retention")}</h2>
-            <p className="max-w-2xl text-sm text-muted-foreground">
-              Configure how long automatic database backups are retained. Backups run roughly
-              every hour and are compressed with gzip. Within the daily window all backups are
-              kept; beyond that, one backup per week and one per month are preserved.
-            </p>
+            <p className="max-w-2xl text-sm text-muted-foreground">{uiText("Configure how long automatic database backups are retained. Backups run roughly every hour and are compressed with gzip. Within the daily window all backups are kept; beyond that, one backup per week and one per month are preserved.")}</p>
           </div>
 
           <div className="space-y-1.5">
@@ -212,7 +204,7 @@ export function InstanceGeneralSettings({ embedded = false }: { embedded?: boole
                       })
                     }
                   >
-                    <div className="text-sm font-medium">{days} days</div>
+                    <div className="text-sm font-medium">{days} {uiText("days")}</div>
                   </button>
                 );
               })}
@@ -224,7 +216,7 @@ export function InstanceGeneralSettings({ embedded = false }: { embedded?: boole
             <div className="flex flex-wrap gap-2">
               {WEEKLY_RETENTION_PRESETS.map((weeks) => {
                 const active = backupRetention.weeklyWeeks === weeks;
-                const label = weeks === 1 ? "1 week" : `${weeks} weeks`;
+                const label = weeks === 1 ? uiText("1 week") : `${weeks} ${uiText("weeks")}`;
                 return (
                   <button
                     key={weeks}
@@ -254,7 +246,7 @@ export function InstanceGeneralSettings({ embedded = false }: { embedded?: boole
             <div className="flex flex-wrap gap-2">
               {MONTHLY_RETENTION_PRESETS.map((months) => {
                 const active = backupRetention.monthlyMonths === months;
-                const label = months === 1 ? "1 month" : `${months} months`;
+                const label = months === 1 ? uiText("1 month") : `${months} ${uiText("months")}`;
                 return (
                   <button
                     key={months}
@@ -287,19 +279,14 @@ export function InstanceGeneralSettings({ embedded = false }: { embedded?: boole
         <div className="space-y-4">
           <div className="space-y-1.5">
             <h2 className="text-sm font-semibold">{uiText("AI feedback sharing")}</h2>
-            <p className="max-w-2xl text-sm text-muted-foreground">
-              Control whether thumbs up and thumbs down votes can send the voted AI output to
-              Paperclip Labs. Votes are always saved locally.
-            </p>
+            <p className="max-w-2xl text-sm text-muted-foreground">{uiText("Control whether thumbs up and thumbs down votes can send the voted AI output to Paperclip Labs. Votes are always saved locally.")}</p>
             {FEEDBACK_TERMS_URL ? (
               <a
                 href={FEEDBACK_TERMS_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
-              >
-                Read our terms of service
-              </a>
+              >{uiText("Read our terms of service")}</a>
             ) : null}
           </div>
           {feedbackDataSharingPreference === "prompt" ? (
@@ -312,13 +299,13 @@ export function InstanceGeneralSettings({ embedded = false }: { embedded?: boole
             {[
               {
                 value: "allowed",
-                label: "Always allow",
-                description: "Share voted AI outputs automatically.",
+                label: uiText("Always allow"),
+                description: uiText("Share voted AI outputs automatically."),
               },
               {
                 value: "not_allowed",
-                label: "Don't allow",
-                description: "Keep voted AI outputs local only.",
+                label: uiText("Don't allow"),
+                description: uiText("Keep voted AI outputs local only."),
               },
             ].map((option) => {
               const active = feedbackDataSharingPreference === option.value;
@@ -380,7 +367,7 @@ export function InstanceGeneralSettings({ embedded = false }: { embedded?: boole
             }}
           >
             <LogOut className="size-4" />
-            {signOutMutation.isPending ? "Signing out..." : "Sign out"}
+            {signOutMutation.isPending ? uiText("Signing out...") : uiText("Sign out")}
           </Button>
         </div>
       </section>

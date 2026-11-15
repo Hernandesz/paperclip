@@ -202,7 +202,7 @@ export function CompanySettings() {
       // still makes sense (another active company, the Cloud portfolio, or
       // the companies list), with a toast naming what happened.
       const archived = companies.find((company) => company.id === companyId);
-      const archivedName = archived?.name ?? "Organization";
+      const archivedName = archived?.name ?? uiText("Organization");
       const departure = resolveCompanyArchiveDeparture({
         archivedCompanyId: companyId,
         companies,
@@ -227,7 +227,7 @@ export function CompanySettings() {
       } else {
         toastActions?.pushToast({
           title: `${archivedName} is archived`,
-          body: "You can unarchive it from this list.",
+          body: uiText("You can unarchive it from this list."),
           tone: "info",
           dedupeKey: `company-archive-departure:${companyId}`,
         });
@@ -244,8 +244,8 @@ export function CompanySettings() {
 
   useEffect(() => {
     setBreadcrumbs([
-      { label: selectedCompany?.name ?? "Company", href: "/dashboard" },
-      { label: "Settings" }
+      { label: selectedCompany?.name ?? uiText("Company"), href: "/dashboard" },
+      { label: uiText("Settings") }
     ]);
   }, [setBreadcrumbs, selectedCompany?.name]);
 
@@ -340,7 +340,7 @@ export function CompanySettings() {
                         onClick={handleClearLogo}
                         disabled={clearLogoMutation.isPending}
                       >
-                        {clearLogoMutation.isPending ? "Removing..." : "Remove logo"}
+                        {clearLogoMutation.isPending ? uiText("Removing...") : uiText("Remove logo")}
                       </Button>
                     </div>
                   )}
@@ -372,7 +372,7 @@ export function CompanySettings() {
             onClick={handleSaveGeneral}
             disabled={generalMutation.isPending || !companyName.trim()}
           >
-            {generalMutation.isPending ? "Saving..." : "Save changes"}
+            {generalMutation.isPending ? uiText("Saving...") : uiText("Save changes")}
           </Button>
           {generalMutation.isSuccess && (
             <span className="text-xs text-muted-foreground">{uiText("Saved")}</span>
@@ -404,9 +404,7 @@ export function CompanySettings() {
       {/* Decisions */}
       <div className="max-w-2xl space-y-4" data-testid="company-settings-decisions-section">
         <div className="space-y-1">
-          <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-            Decisions
-          </div>
+          <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{uiText("Decisions")}</div>
           <p className="text-xs text-muted-foreground">
             Each owner saves as soon as you choose it.
           </p>
@@ -414,24 +412,24 @@ export function CompanySettings() {
         {membersView.kind === "error" ? <QueryErrorState error={membersView.error} onRetry={membersView.retry} /> : null}
         <DecisionOwnerField
           label={uiText("Default decision owner")}
-          hint="When a card needs a person but has no explicit owner, it goes to this user's For you list. Leave as Unassigned to keep ownerless cards in the claimable pool."
+          hint={uiText("When a card needs a person but has no explicit owner, it goes to this user's For you list. Leave as Unassigned to keep ownerless cards in the claimable pool.")}
           testId="company-settings-default-decision-owner"
-          unsetLabel="Unassigned (no default owner)"
+          unsetLabel={uiText("Unassigned (no default owner)")}
           savedUserId={selectedCompany.defaultDecisionOwnerUserId ?? null}
           memberOptions={memberOptions}
           membersLoading={membersQuery.isLoading}
-          fallbackError="Couldn't save the default decision owner."
+          fallbackError={uiText("Couldn't save the default decision owner.")}
           save={saveDefaultDecisionOwner}
         />
         <DecisionOwnerField
           label={uiText("Budget owner")}
-          hint="A budget hard stop also goes to this user's For you list, with Raise limit and Keep paused. The Company view still shows it to every operator."
+          hint={uiText("A budget hard stop also goes to this user's For you list, with Raise limit and Keep paused. The Company view still shows it to every operator.")}
           testId="company-settings-budget-owner"
-          unsetLabel="No budget owner (Company view only)"
+          unsetLabel={uiText("No budget owner (Company view only)")}
           savedUserId={selectedCompany.budgetOwnerUserId ?? null}
           memberOptions={memberOptions}
           membersLoading={membersQuery.isLoading}
-          fallbackError="Couldn't save the budget owner."
+          fallbackError={uiText("Couldn't save the budget owner.")}
           save={saveBudgetOwner}
         />
       </div>
@@ -484,10 +482,10 @@ export function CompanySettings() {
               }}
             >
               {archiveMutation.isPending
-                ? "Archiving..."
+                ? uiText("Archiving...")
                 : selectedCompany.status === "archived"
-                ? "Already archived"
-                : "Archive organization"}
+                ? uiText("Already archived")
+                : uiText("Archive organization")}
             </Button>
             {archiveMutation.error && (
               <span className="text-xs text-destructive">
@@ -568,7 +566,7 @@ function DecisionOwnerField({
         </p>
       ) : (
         <p role="status" className="min-h-4 text-xs text-muted-foreground">
-          {mutation.isPending ? "Saving…" : mutation.isSuccess ? "Saved" : null}
+          {mutation.isPending ? uiText("Saving…") : mutation.isSuccess ? uiText("Saved") : null}
         </p>
       )}
     </div>
