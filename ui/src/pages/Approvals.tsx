@@ -1,3 +1,4 @@
+import { uiText } from "@/i18n/ui-language";
 import { describeError } from "../api/errors";
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "@/lib/router";
@@ -29,7 +30,7 @@ export function Approvals() {
   const [actionError, setActionError] = useState<string | null>(null);
 
   useEffect(() => {
-    setBreadcrumbs([{ label: "Approvals" }]);
+    setBreadcrumbs([{ label: uiText("Approvals") }]);
   }, [setBreadcrumbs]);
 
   const approvalsQuery = useQuery({
@@ -80,7 +81,7 @@ export function Approvals() {
   ).length;
 
   if (!selectedCompanyId) {
-    return <p className="text-sm text-muted-foreground">Select an organization first.</p>;
+    return <p className="text-sm text-muted-foreground">{uiText("Select an organization first.")}</p>;
   }
 
   // Keep loaded approvals on screen through a failed refetch; only a real
@@ -113,7 +114,7 @@ export function Approvals() {
                 {pendingCount}
               </Badge>
             )}</> },
-            { value: "all", label: "All" },
+            { value: "all", label: uiText("All") },
           ]} />
         </Tabs>
       </div>

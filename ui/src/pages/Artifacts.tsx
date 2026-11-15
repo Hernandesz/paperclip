@@ -1,3 +1,4 @@
+import { uiText } from "@/i18n/ui-language";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { ArrowLeft, Layers, Package } from "lucide-react";
@@ -219,16 +220,16 @@ export function Artifacts() {
   useEffect(() => {
     if (viewingSelectedStack && selectedGroup) {
       setBreadcrumbs([
-        { label: "Artifacts", href: "/artifacts" },
+        { label: uiText("Artifacts"), href: "/artifacts" },
         { label: `${selectedGroup.issue.identifier} · ${selectedGroup.title}` },
       ]);
     } else {
-      setBreadcrumbs([{ label: "Artifacts" }]);
+      setBreadcrumbs([{ label: uiText("Artifacts") }]);
     }
   }, [setBreadcrumbs, viewingSelectedStack, selectedGroup]);
 
   if (!selectedCompanyId) {
-    return <EmptyState icon={Package} message="Select an organization to view artifacts." />;
+    return <EmptyState icon={Package} message={uiText("Select an organization to view artifacts.")} />;
   }
 
   const showGroupCards = viewingStackList;
@@ -265,9 +266,7 @@ export function Artifacts() {
             data-testid="artifact-stack-back"
             className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent/50 hover:text-foreground"
           >
-            <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
-            All stacks
-          </Link>
+            <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />{uiText("All stacks")}</Link>
           {selectedGroup ? (
             <span className="truncate text-muted-foreground">
               <span className="text-foreground/80">{selectedGroup.issue.identifier}</span>{" "}

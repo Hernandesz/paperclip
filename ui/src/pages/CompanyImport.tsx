@@ -1,3 +1,4 @@
+import { uiText } from "@/i18n/ui-language";
 import { useEffect, useMemo, useRef, useState, type ChangeEvent } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type {
@@ -218,7 +219,7 @@ function ImportPreviewPane({
 }) {
   if (!selectedFile || content === null) {
     return (
-      <EmptyState icon={Package} message="Select a file to preview its contents." />
+      <EmptyState icon={Package} message={uiText("Select a file to preview its contents.")} />
     );
   }
 
@@ -279,9 +280,7 @@ function ImportPreviewPane({
             <code>{textContent}</code>
           </pre>
         ) : (
-          <div className="rounded-lg border border-border bg-accent/10 px-4 py-3 text-sm text-muted-foreground">
-            Binary asset preview is not available for this file type.
-          </div>
+          <div className="rounded-lg border border-border bg-accent/10 px-4 py-3 text-sm text-muted-foreground">{uiText("Binary asset preview is not available for this file type.")}</div>
         )}
       </div>
     </div>
@@ -458,9 +457,7 @@ function ConflictResolutionList({
     <div className="mx-5 mt-3">
       <div className="rounded-md border border-border">
         <div className="flex items-center gap-2 border-b border-border px-4 py-2.5">
-          <h3 className="text-sm font-medium">
-            Renames
-          </h3>
+          <h3 className="text-sm font-medium">{uiText("Renames")}</h3>
           <span className="text-xs text-muted-foreground">
             {conflicts.length} item{conflicts.length === 1 ? "" : "s"}
           </span>
@@ -542,9 +539,7 @@ function ConflictResolutionList({
                   >
                     {isConfirmed ? (
                       <>
-                        <Check className="h-3 w-3" />
-                        confirmed
-                      </>
+                        <Check className="h-3 w-3" />{uiText("confirmed")}</>
                     ) : (
                       "confirm rename"
                     )}
@@ -668,7 +663,7 @@ function AdapterPickerList({
     <div className="mx-5 mt-3">
       <div className="rounded-md border border-border">
         <div className="flex items-center gap-2 border-b border-border px-4 py-2.5">
-          <h3 className="text-sm font-medium">Adapters</h3>
+          <h3 className="text-sm font-medium">{uiText("Adapters")}</h3>
           <span className="text-xs text-muted-foreground">
             {agents.length} agent{agents.length === 1 ? "" : "s"}
           </span>
@@ -1122,8 +1117,8 @@ export function CompanyImport() {
   useEffect(() => {
     setBreadcrumbs([
       { label: selectedCompany?.name ?? "Company", href: "/dashboard" },
-      { label: "Settings", href: "/company/settings" },
-      { label: "Import" },
+      { label: uiText("Settings"), href: "/company/settings" },
+      { label: uiText("Import") },
     ]);
   }, [selectedCompany?.name, setBreadcrumbs]);
 
@@ -1244,7 +1239,7 @@ export function CompanyImport() {
       if (generation !== previewGenerationRef.current) return;
       pushToast({
         tone: "error",
-        title: "Preview failed",
+        title: uiText("Preview failed"),
         body: describeError(err).body,
       });
     },
@@ -1363,7 +1358,7 @@ export function CompanyImport() {
         });
         pushToast({
           tone: "success",
-          title: "Import completed",
+          title: uiText("Import completed"),
           body: "Open the organization to view it.",
         });
         return;
@@ -1398,7 +1393,7 @@ export function CompanyImport() {
       setResumedWatchJobId(null);
       pushToast({
         tone: "error",
-        title: "Import failed",
+        title: uiText("Import failed"),
         body: describeError(err).body,
       });
     },
@@ -1452,7 +1447,7 @@ export function CompanyImport() {
     } catch (err) {
       pushToast({
         tone: "error",
-        title: "Package read failed",
+        title: uiText("Package read failed"),
         body: describeError(err).body,
       });
     }
@@ -1672,7 +1667,7 @@ export function CompanyImport() {
     if (failureCount > 0) {
       pushToast({
         tone: "error",
-        title: "Some items were not activated",
+        title: uiText("Some items were not activated"),
         body: `${failureCount} item${failureCount === 1 ? "" : "s"} failed to activate; the rest were activated.`,
       });
     }
@@ -1824,7 +1819,7 @@ export function CompanyImport() {
     return (
       <div className="max-w-6xl space-y-4 px-5 py-5">
         <div>
-          <h2 className="text-base font-semibold">Import completed</h2>
+          <h2 className="text-base font-semibold">{uiText("Import completed")}</h2>
           <p className="text-xs text-muted-foreground mt-1">
             {importOutcome.companyName
               ? <>The import finished and <span className="font-medium text-foreground">{importOutcome.companyName}</span> is ready. Its detailed summary is no longer available.</>
@@ -1845,9 +1840,7 @@ export function CompanyImport() {
               // Force a fresh dashboard load so newly imported agents are
               // immediately visible (same reason as the full-outcome CTA).
               onClick={() => window.location.assign(importOutcome.dashboardPath!)}
-            >
-              Open organization dashboard
-            </Button>
+            >{uiText("Open organization dashboard")}</Button>
           </div>
         ) : null}
       </div>
@@ -1864,7 +1857,7 @@ export function CompanyImport() {
     return (
       <div className="max-w-6xl space-y-4 px-5 py-5">
         <div>
-          <h2 className="text-base font-semibold">Import complete</h2>
+          <h2 className="text-base font-semibold">{uiText("Import complete")}</h2>
           <p className="text-xs text-muted-foreground mt-1">
             {result.company.name}: {result.agents.length} agent{result.agents.length === 1 ? "" : "s"},{" "}
             {skillResults.length} skill{skillResults.length === 1 ? "" : "s"},{" "}
@@ -1876,7 +1869,7 @@ export function CompanyImport() {
         {skillResults.length > 0 && (
           <div className="rounded-md border border-border">
             <div className="border-b border-border px-4 py-2.5">
-              <h3 className="text-sm font-medium">Skill import results</h3>
+              <h3 className="text-sm font-medium">{uiText("Skill import results")}</h3>
             </div>
             <div className="divide-y divide-border">
               {skillResults.map((skill) => (
@@ -1903,7 +1896,7 @@ export function CompanyImport() {
         {activationItems.length > 0 && (
           <div className="rounded-md border border-border">
             <div className="flex items-center gap-2 border-b border-border px-4 py-2.5">
-              <h3 className="text-sm font-medium">Activate imported agents and routines</h3>
+              <h3 className="text-sm font-medium">{uiText("Activate imported agents and routines")}</h3>
               <span className="text-xs text-muted-foreground">imported paused</span>
             </div>
             <div className="divide-y divide-border">
@@ -1963,9 +1956,7 @@ export function CompanyImport() {
             size="sm"
             variant="outline"
             onClick={() => window.location.assign(dashboardPath)}
-          >
-            Go to dashboard
-          </Button>
+          >{uiText("Go to dashboard")}</Button>
         </div>
       </div>
     );
@@ -1978,10 +1969,8 @@ export function CompanyImport() {
     return (
       <div className="max-w-6xl space-y-4 px-5 py-5">
         <div>
-          <h2 className="text-base font-semibold">Resume watching import</h2>
-          <p className="text-xs text-muted-foreground mt-1">
-            An import you started earlier is still running on the server.
-          </p>
+          <h2 className="text-base font-semibold">{uiText("Resume watching import")}</h2>
+          <p className="text-xs text-muted-foreground mt-1">{uiText("An import you started earlier is still running on the server.")}</p>
         </div>
         <div className="flex items-start gap-2 rounded-md border border-border bg-muted/30 px-3 py-2.5">
           <Loader2 className="mt-0.5 h-3.5 w-3.5 shrink-0 animate-spin text-muted-foreground" />
@@ -1994,7 +1983,7 @@ export function CompanyImport() {
   }
 
   if (!selectedCompanyId) {
-    return <EmptyState icon={Download} message="Select an organization to import into." />;
+    return <EmptyState icon={Download} message={uiText("Select an organization to import into.")} />;
   }
 
   return (
@@ -2002,17 +1991,15 @@ export function CompanyImport() {
       {/* Source form section */}
       <div className="border-b border-border px-5 py-5 space-y-4">
         <div>
-          <h2 className="text-base font-semibold">Import source</h2>
-          <p className="text-xs text-muted-foreground mt-1">
-            Choose a GitHub repo or upload a local Paperclip zip package.
-          </p>
+          <h2 className="text-base font-semibold">{uiText("Import source")}</h2>
+          <p className="text-xs text-muted-foreground mt-1">{uiText("Choose a GitHub repo or upload a local Paperclip zip package.")}</p>
         </div>
 
         <div className="grid gap-2 md:grid-cols-2">
           {(
             [
-              { key: "github", icon: GithubIcon, label: "GitHub repo" },
-              { key: "local", icon: Upload, label: "Local zip" },
+              { key: "github", icon: GithubIcon, label: uiText("GitHub repo") },
+              { key: "local", icon: Upload, label: uiText("Local zip") },
             ] as const
           ).map(({ key, icon: Icon, label }) => (
             <button
@@ -2054,9 +2041,7 @@ export function CompanyImport() {
                 variant="outline"
                 onClick={() => packageInputRef.current?.click()}
                 disabled={importMutation.isPending}
-              >
-                Choose zip
-              </Button>
+              >{uiText("Choose zip")}</Button>
               {localPackage && (
                 <span className="text-xs text-muted-foreground">
                   {localPackage.name} with{" "}
@@ -2074,7 +2059,7 @@ export function CompanyImport() {
           </div>
         ) : (
           <Field
-            label="GitHub URL"
+            label={uiText("GitHub URL")}
             hint="Repo tree path or blob URL to COMPANY.md (e.g. github.com/owner/repo/tree/main/company)."
           >
             <input
@@ -2091,7 +2076,7 @@ export function CompanyImport() {
           </Field>
         )}
 
-        <Field label="Target" hint="Import into this organization or create a new one.">
+        <Field label={uiText("Target")} hint={uiText("Import into this organization or create a new one.")}>
           <select
             className="w-full rounded-md border border-border bg-transparent px-2.5 py-1.5 text-sm outline-none"
             value={targetMode}
@@ -2101,7 +2086,7 @@ export function CompanyImport() {
               resetImportFlowState();
             }}
           >
-            <option value="new">Create new organization</option>
+            <option value="new">{uiText("Create new organization")}</option>
             <option value="existing">
               Existing company: {selectedCompany?.name}
             </option>
@@ -2110,8 +2095,8 @@ export function CompanyImport() {
 
         {targetMode === "new" && (
           <Field
-            label="New organization name"
-            hint="Optional override. Leave blank to use the package name."
+            label={uiText("New organization name")}
+            hint={uiText("Optional override. Leave blank to use the package name.")}
           >
             <input
               className="w-full rounded-md border border-border bg-transparent px-2.5 py-1.5 text-sm outline-none"
@@ -2121,14 +2106,14 @@ export function CompanyImport() {
                 setNewCompanyName(e.target.value);
                 resetMutationState();
               }}
-              placeholder="Imported Organization"
+              placeholder={uiText("Imported Organization")}
             />
           </Field>
         )}
 
         <Field
-          label="Collision strategy"
-          hint="Board imports can rename, skip, or replace matching organization content."
+          label={uiText("Collision strategy")}
+          hint={uiText("Board imports can rename, skip, or replace matching organization content.")}
         >
           <select
             className="w-full rounded-md border border-border bg-transparent px-2.5 py-1.5 text-sm outline-none"
@@ -2139,9 +2124,9 @@ export function CompanyImport() {
               resetImportFlowState();
             }}
           >
-            <option value="rename">Rename on conflict</option>
-            <option value="skip">Skip on conflict</option>
-            <option value="replace">Replace existing</option>
+            <option value="rename">{uiText("Rename on conflict")}</option>
+            <option value="skip">{uiText("Skip on conflict")}</option>
+            <option value="replace">{uiText("Replace existing")}</option>
           </select>
         </Field>
 
@@ -2157,14 +2142,10 @@ export function CompanyImport() {
             {previewMutation.isPending ? "Previewing..." : "Preview import"}
           </Button>
           {!hasSource && !previewMutation.isPending && (
-            <span className="text-xs text-muted-foreground">
-              Choose a package above to enable the preview.
-            </span>
+            <span className="text-xs text-muted-foreground">{uiText("Choose a package above to enable the preview.")}</span>
           )}
           {importMutation.isPending && (
-            <span className="text-xs text-muted-foreground">
-              Import in progress — the package and settings unlock when it finishes.
-            </span>
+            <span className="text-xs text-muted-foreground">{uiText("Import in progress — the package and settings unlock when it finishes.")}</span>
           )}
         </div>
         {previewMutation.isPending && (
@@ -2198,9 +2179,7 @@ export function CompanyImport() {
           {/* Sticky import action bar */}
           <div className="sticky top-0 z-10 border-b border-border bg-background px-5 py-3">
             <div className="flex flex-wrap items-center gap-4 text-sm">
-              <span className="font-medium">
-                Import preview
-              </span>
+              <span className="font-medium">{uiText("Import preview")}</span>
               <span className="text-muted-foreground">
                 {selectedCount} / {totalFiles} file{totalFiles === 1 ? "" : "s"} selected
               </span>
@@ -2251,9 +2230,7 @@ export function CompanyImport() {
                   resetMutationState();
                 }}
                 className="accent-foreground"
-              />
-              Start imported agents and routines paused
-            </label>
+              />{uiText("Start imported agents and routines paused")}</label>
             <Button
               size="sm"
               onClick={() => importMutation.mutate({ previewForImport: importPreview, pauseAutomations })}
@@ -2308,7 +2285,7 @@ export function CompanyImport() {
           <div className="grid gap-4 xl:h-(--sz-calc-31) xl:grid-cols-(--gtc-25) xl:gap-0">
             <aside className="flex max-h-(--sz-24rem) flex-col overflow-hidden border-b border-border xl:max-h-none xl:border-b-0 xl:border-r">
               <div className="border-b border-border px-4 py-3 shrink-0">
-                <h2 className="text-base font-semibold">Package files</h2>
+                <h2 className="text-base font-semibold">{uiText("Package files")}</h2>
               </div>
               <div className="flex-1 overflow-y-auto">
                 <FileTree
