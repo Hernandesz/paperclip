@@ -19,6 +19,8 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     pids_limit: 2048
+    security_opt:
+      - seccomp=unconfined
     stop_grace_period: 90s
     environment:
       DATABASE_URL: "postgresql://paperclip:${POSTGRES_PASSWORD}@db:5432/paperclip"
