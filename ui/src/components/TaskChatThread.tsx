@@ -1,3 +1,4 @@
+import { uiText } from "@/i18n/ui-language";
 import { imagePreparationReceiptIds } from "./task-chat/image-resources";
 import type { ScrollingHistory } from "@/components/task-chat/TaskMessageScroller";
 import { TaskChatShimmerScope } from "@/components/task-chat/TaskChatShimmer";
@@ -554,7 +555,7 @@ export function TaskChatThread(props: TaskChatThreadProps) {
     showComposer = true,
     composerPause,
     composerDisabledReason,
-    emptyMessage = "No messages yet.",
+    emptyMessage = uiText("No messages yet."),
     companyId,
     linkedRuns,
     liveRuns,
@@ -1736,7 +1737,7 @@ export function TaskChatThread(props: TaskChatThreadProps) {
             id,
             item: {
               id, kind: "marker", variant: "interrupted", tone: "neutral",
-              label: "Waiting to resume",
+              label: uiText("Waiting to resume"),
               detail: "The previous execution needs to be checked before work can continue. See the task’s execution hold for the next action. Individual checks remain in the run history.",
             },
           });
@@ -2081,7 +2082,7 @@ export function TaskChatThread(props: TaskChatThreadProps) {
             id,
             kind: "marker",
             variant: "turn_boundary",
-            label: "Run completed",
+            label: uiText("Run completed"),
             detail: "The runner returned no user-facing response.",
           },
         });
@@ -3076,7 +3077,7 @@ export function TaskChatThread(props: TaskChatThreadProps) {
   const historyControl = props.historyControl ?? (
     props.compactHistory && props.onExpandHistory
     && (deferredTranscriptRunIds.size > 0 || logRuns.some((run) => truncatedRunIds?.has(run.id)))
-      ? <Button type="button" variant="ghost" size="sm" onClick={props.onExpandHistory}>More run output</Button>
+      ? <Button type="button" variant="ghost" size="sm" onClick={props.onExpandHistory}>{uiText("More run output")}</Button>
       : null
   );
   const renderBrief = useCallback(

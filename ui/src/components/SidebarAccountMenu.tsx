@@ -275,7 +275,7 @@ export function SidebarAccountMenu({
                     <LogOut className="size-4" />
                   </span>
                   <TruncatedText className="min-w-0 flex-1 truncate">
-                    {signOutMutation.isPending ? "Signing out..." : "Sign out"}
+                    {signOutMutation.isPending ? uiText("Signing out...") : uiText("Sign out")}
                   </TruncatedText>
                 </button>
               ) : null}

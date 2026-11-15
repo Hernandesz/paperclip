@@ -1,3 +1,4 @@
+import { uiText } from "@/i18n/ui-language";
 import { createUuid } from "@/lib/uuid";
 import { useCurrentAccountGuard } from "@/hooks/useAccountBoundMutation";
 import { ComposerFileDropTarget } from "./ComposerFileDropTarget";
@@ -322,7 +323,7 @@ function modePlaceholder(mode: IssueWorkMode, agentName: string, mobile: boolean
   if (mobile) {
     if (mode === "planning") return `Plan with ${agentName}…`;
     if (mode === "ask") return `Ask ${agentName}…`;
-    return `Message ${agentName}…`;
+    return uiText("Message {{agent}}…").replace("{{agent}}", agentName);
   }
   switch (mode) {
     case "planning":
@@ -330,7 +331,7 @@ function modePlaceholder(mode: IssueWorkMode, agentName: string, mobile: boolean
     case "ask":
       return `Ask ${agentName} a question — read-only, nothing runs…`;
     default:
-      return `Message ${agentName} — describe what you want done…`;
+      return uiText("Message {{agent}} — describe what you want done…").replace("{{agent}}", agentName);
   }
 }
 
@@ -1353,7 +1354,7 @@ export function TaskChatComposer({
           className="flex h-11 min-w-0 items-center gap-2 px-2.5"
           data-testid="task-chat-composer-context"
           role="group"
-          aria-label="Task project and worktrees"
+          aria-label={uiText("Task project and worktrees")}
         >
           {creation.contextBar}
         </TaskChatComposerBar>
@@ -1410,7 +1411,7 @@ export function TaskChatComposer({
           {pause && conversationMode ? (
             <div className="space-y-2">
               <TaskChatPausedTakeover {...pause} hasDraft={Boolean(body.trim() || attachments.length)} />
-              <p className="text-xs text-muted-foreground">Send /new to start a fresh session and resume this conversation.</p>
+              <p className="text-xs text-muted-foreground">{uiText("Send /new to start a fresh session and resume this conversation.")}</p>
             </div>
           ) : null}
           <ComposerImageAttachments
@@ -1601,11 +1602,11 @@ export function TaskChatComposer({
               <InlineEntitySelector
                 value={assigneeValue}
                 options={reassignOptions ?? []}
-                placeholder="Assignee"
+                placeholder={uiText("Assignee")}
                 mobileTitle="Select assignee"
                 noneLabel="No assignee"
                 searchPlaceholder="Search assignees…"
-                emptyMessage="No matches."
+                emptyMessage={uiText("No matches.")}
                 onChange={updatePendingAssignee}
                 disabled={disabled}
                 triggerTestId="task-chat-composer-assignee"

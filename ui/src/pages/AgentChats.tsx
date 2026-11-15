@@ -1,3 +1,4 @@
+import { uiText } from "@/i18n/ui-language";
 import { usePrimaryAgentPresentation } from "@/components/primary-agent/PrimaryAgentPresentation";
 import { useEffect, useState } from "react";
 import { MessageCircle } from "lucide-react";
@@ -57,20 +58,20 @@ function AgentChatsContent({ companyId, userId, enabled, loaded, agents, chats, 
   useEffect(() => {
     if (entryPath) navigate(entryPath, { replace: true });
   }, [navigate, entryPath]);
-  if (!loaded) return <p role="status" className="text-sm text-muted-foreground">Loading chat…</p>;
-  if (!enabled) return <p className="text-sm text-muted-foreground">Agent Chat is off for this instance. An administrator can enable it in <Link className="underline underline-offset-4" to="/company/settings/instance/experimental#experimental-enableAgentChat">Experimental settings</Link>. Your workspace preference does not change Chat availability.</p>;
-  if (!companyId) return <p className="text-sm text-muted-foreground">Select a company to start a conversation.</p>;
-  if (reconnecting) return <p role="status" className="text-sm text-muted-foreground">Loading chat…</p>;
-  if (resolvingRecent || entryPath || primary?.loading) return <p role="status" className="text-sm text-muted-foreground">Opening chat…</p>;
+  if (!loaded) return <p role="status" className="text-sm text-muted-foreground">{uiText("Loading chat…")}</p>;
+  if (!enabled) return <p className="text-sm text-muted-foreground">Agent Chat is off for this instance. An administrator can enable it in <Link className="underline underline-offset-4" to="/company/settings/instance/experimental#experimental-enableAgentChat">{uiText("Experimental settings")}</Link>. Your workspace preference does not change Chat availability.</p>;
+  if (!companyId) return <p className="text-sm text-muted-foreground">{uiText("Select a company to start a conversation.")}</p>;
+  if (reconnecting) return <p role="status" className="text-sm text-muted-foreground">{uiText("Loading chat…")}</p>;
+  if (resolvingRecent || entryPath || primary?.loading) return <p role="status" className="text-sm text-muted-foreground">{uiText("Opening chat…")}</p>;
   const error = blockingError ?? (recentIds.length > 0 && chatsView.kind === "error" ? chats.error : null);
   return <div className="mx-auto flex h-full max-w-xl flex-col justify-center gap-6 px-4 py-12">
     <div className="flex flex-col gap-3">
       <MessageCircle className="size-6 text-muted-foreground" />
-      <h1 className="text-xl font-semibold">Who would you like to talk to?</h1>
-      <p className="text-sm leading-relaxed text-muted-foreground">Ask a question, think through an idea, or plan the next step with your team.</p>
+      <h1 className="text-xl font-semibold">{uiText("Who would you like to talk to?")}</h1>
+      <p className="text-sm leading-relaxed text-muted-foreground">{uiText("Ask a question, think through an idea, or plan the next step with your team.")}</p>
     </div>
     {error ? <QueryErrorState error={error} action="load your chats" onRetry={() => { agentsView.retry(); chatsView.retry(); sessionView.retry(); }} />
-      : agents.isPending || session.isPending ? <p role="status" className="text-sm text-muted-foreground">Loading agents…</p>
+      : agents.isPending || session.isPending ? <p role="status" className="text-sm text-muted-foreground">{uiText("Loading agents…")}</p>
       : <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
         {(agents.data ?? []).slice(0, 6).map(agent => <button key={agent.id} type="button" disabled={openingId !== null}
           onClick={async () => {
@@ -82,7 +83,7 @@ function AgentChatsContent({ companyId, userId, enabled, loaded, agents, chats, 
         </button>)}
       </div>}
     {openError && <p role="alert" className="text-sm text-destructive">{openError}</p>}
-    {agents.data?.length === 0 && <p className="text-sm text-muted-foreground">Add an agent to start a conversation.</p>}
-    <Button variant="ghost" className="self-start" asChild><Link to="/agents/all">Browse all agents</Link></Button>
+    {agents.data?.length === 0 && <p className="text-sm text-muted-foreground">{uiText("Add an agent to start a conversation.")}</p>}
+    <Button variant="ghost" className="self-start" asChild><Link to="/agents/all">{uiText("Browse all agents")}</Link></Button>
   </div>;
 }
